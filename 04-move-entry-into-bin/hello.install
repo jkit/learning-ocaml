@@ -1,0 +1,10 @@
+lib: [
+  "_build/install/default/lib/hello/META" {"META"}
+  "_build/install/default/lib/hello/opam" {"opam"}
+]
+bin: [
+  "_build/install/default/bin/psizzle" {"psizzle"}
+]
+doc: [
+  "_build/install/default/doc/hello/README.md"
+]

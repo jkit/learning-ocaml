@@ -1,0 +1,27 @@
+(jbuild_version 1)
+
+(library
+ ((name tests)
+
+  ;; This saves shrinks the _build/default/tests.* files.
+  ;; I'm not sure shrinking those files provides any significant benefit.
+  ;; Leaving this line out might just simplify things.
+  (modules (:standard \ runner))
+
+  (library_flags (-linkall))
+  (preprocess (pps (ppx_expect)))))
+
+(executable
+ ((name runner)
+
+  ;; In the `library` stanza, I excluded the runner.
+  ;; Should I exclude all but the `runner` here? Would adding a
+  ;;   (modules (runner))
+  ;; do it?
+
+  (libraries (tests ppx_expect.evaluator ppx_inline_test.runner.lib))))
+
+(alias
+  ((name runtest)
+   (deps (runner.exe))
+   (action (run ${<} inline-test-runner tests -diff-cmd diff -show-counts))))
